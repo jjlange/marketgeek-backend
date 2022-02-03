@@ -3,6 +3,8 @@ from newsapi import NewsApiClient
 import requests
 import json
 import pandas
+import pymongo
+
 
 newsapi = NewsApiClient(api_key='ee1453e25ade4e16b8fb219f9fe9e6f5')
 
