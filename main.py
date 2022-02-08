@@ -3,11 +3,11 @@ from newsapi import NewsApiClient
 import requests
 import json
 import pandas
-import pymongo
 
 
 newsapi = NewsApiClient(api_key='ee1453e25ade4e16b8fb219f9fe9e6f5')
 
+#grab headlines from news-api 
 top_headlines_url = 'https://newsapi.org/v2/top-headlines'
 everything_news_url = 'https://newsapi.org/v2/everything'
 sources_url = 'https://newsapi.org/v2/sources'
@@ -40,10 +40,30 @@ articles_list_usa = responses_usa['articles']
 output_articles_usa = pandas.read_json(json.dumps(articles_list_usa))
 
 #write the outputs into a csv 
-output_articles_uk.to_csv('C:/Users/Christian/Documents/newsout.csv', mode='a', header=False)
-output_articles_usa.to_csv('C:/Users/Christian/Documents/newsout.csv', mode='a', header=False)
+output_articles_uk.to_csv('newsout.csv', mode='a', header=False)
+output_articles_usa.to_csv('newsout.csv', mode='a', header=False)
 
 print("Exported to csv")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
