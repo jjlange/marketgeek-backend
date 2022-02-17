@@ -12,6 +12,9 @@ top_headlines_url = 'https://newsapi.org/v2/top-headlines'
 everything_news_url = 'https://newsapi.org/v2/everything'
 sources_url = 'https://newsapi.org/v2/sources'
 
+#dictionary
+struct_dict = {'title': [], 'author': [], 'datetime': [], 'source': [], 'body': []}
+df = pandas.DataFrame(struct_dict)
 
 headers = {'Authorization': 'ee1453e25ade4e16b8fb219f9fe9e6f5'}
 
@@ -28,7 +31,7 @@ response_usa = requests.get(url=top_headlines_url, headers=headers, params=headl
 output = json.dumps(response_uk.json(), indent=2)
 output2 = json.dumps(response_usa.json(), indent=2)
 
-print(output,output2)
+#print(output,output2)
 
 #turn strings into a array so we can seperate the articles 
 responses_uk = json.loads(output)
@@ -38,13 +41,22 @@ output_articles_uk = pandas.read_json(json.dumps(articles_list_uk))
 responses_usa = json.loads(output2)
 articles_list_usa = responses_usa['articles']
 output_articles_usa = pandas.read_json(json.dumps(articles_list_usa))
+ 
+output_articles = output_articles_uk.append(output_articles_usa).reset_index(drop=True)
 
-#write the outputs into a csv 
-output_articles_uk.to_csv('newsout.csv', mode='a', header=False)
-output_articles_usa.to_csv('newsout.csv', mode='a', header=False)
+#adding values from the output articles data (stored as objects within array) to a larger dataframe to be added 
+df["title"] = output_articles["title"]
+#if author blank use name
+df["author"] = output_articles["author"]
 
-print("Exported to csv")
+df["datetime"] = output_articles["publishedAt"]
+df["source"] = output_articles["url"]
+df["body"] = output_articles["description"]
 
+#write the outputs into a csv
+df.to_csv('newsout.csv', mode='a', index=False)
+
+print("CSV Outported")
 
 
 
