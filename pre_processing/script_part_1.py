@@ -2,9 +2,7 @@ import os
 import re
 import pandas as pd
 
-
 folder = "/home/benedict/Documents/comp_sci_repository/project_2/bloomberg_df/bloomberg_dataset"
-
 folder3 = "/home/benedict/Documents/comp_sci_repository/project_2/data_scrape/text.txt"
 
 current = folder
@@ -18,7 +16,6 @@ def get_structure(filepath):
         with open(filepath, 'r') as f:
             # struct_dict["body"] = ""
             for idx, line in enumerate(f):
-                # line = re.sub("-- |\n|\s{2,}", " ", line)
                 #get everything on one line
                 line = re.sub("\n", " ", line)
                 file_text += line
@@ -57,9 +54,6 @@ def walk_files(filepath):
 walk_files(current)
 # merge dfs into the data_frame
 data_frame = pd.concat(dfs).reset_index(drop=True)
-
-# print(data_frame.head(5)['source'])
-
 data_frame.to_csv('data_1.csv', index=False)
 
 

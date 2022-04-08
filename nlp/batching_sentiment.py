@@ -1,18 +1,15 @@
 from transformers import AutoTokenizer, AutoModelForSequenceClassification
-# from transformers import BertTokenizer, BertForSequenceClassification
-
 import numpy as np
 import pandas as pd
 import dask.dataframe as dd
 import torch
 from tqdm import tqdm
-# from sklearn.datasets import make_blobs
-import hdbscan
 from hdbscan.flat import (HDBSCAN_flat,
                           approximate_predict_flat,
                           membership_vector_flat,
                           all_points_membership_vectors_flat)
 
+# script for calculating sentiment using FinBERT and outputting a numpy file of all tensors
 
 tokenizer = AutoTokenizer.from_pretrained("ProsusAI/finbert")
 model = AutoModelForSequenceClassification.from_pretrained("ProsusAI/finbert")
@@ -33,31 +30,23 @@ for chunk in tqdm(np.array_split(df, 1024)): #1024 split
 
 np.save('../data/tensors.npy', tensors)
 
-# ddf['tensors(+/-/n)'] = pd.Series(tensors)
-# ddf.to_csv('data/full_dataset_w_tensors_*.csv', index=False)
 
-# df.to_csv('data/dataset_w_tensors_*.csv', index=False)
+# saving in csv, discontinued as does not preserve data type
+ddf['tensors(+/-/n)'] = pd.Series(tensors)
+ddf.to_csv('data/full_dataset_w_tensors_*.csv', index=False)
+df.to_csv('data/dataset_w_tensors_*.csv', index=False)
+
+
 
 # --------- clustering with hdbscan ----------------
+clusterer = HDBSCAN_flat(tensors,
+                         n_clusters=15, min_cluster_size=1000)
 
-# clusterer = HDBSCAN_flat(tensors,
-#                          n_clusters=15, min_cluster_size=1000)
-#
-# # data = list(df['tensors(+/-/n)'])
-# data = list(ddf['tensors(+/-/n)'])
-#
-# # hdbscan = hdbscan.HDBSCAN(min_cluster_size=10, min_samples=5)
-# #                          cluster_selection_method='eom',
-# # labels = hdbscan.fit_predict(data)
-#
-# labels = clusterer.labels_
-# output = pd.Series(list(labels))
-#
-# # df['sentiment_cluster_id'] = output
-# ddf['sentiment_cluster_id'] = output
-#
-# # df.to_csv('data/full_dataset.csv', index=False)
-# # ddf.to_csv('data/full_dataset_*.csv', index=False)
-# ddf.to_csv('data/full_dataset_*.csv', index=False)
+data = list(ddf['tensors(+/-/n)'])
+labels = clusterer.labels_
+output = pd.Series(list(labels))
+
+ddf['sentiment_cluster_id'] = output
+ddf.to_csv('data/full_dataset_*.csv', index=False)
 
 

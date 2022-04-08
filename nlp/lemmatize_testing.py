@@ -1,37 +1,10 @@
-# import pandas as pd
-#
-# topics = [['said', 'percent', 'million', 'bank', 'rashid', 'company', 'today', 'billion', 'capital'], ['said', 'company', 'percent', 'million', 'new', 'inc', 'story', 'shares', 'contact'], ['percent', 'oil', 'oao', 'said', 'russian', 'company', 'russia', 'moscow', 'gas'], ['percent', 'said', 'year', 'output', 'ore', 'production', 'nickel', 'tons', 'iron'], ['china', 'yuan', 'percent', 'year', 'said', 'shanghai', 'billion', 'bank', 'aircraft']]
-# topic_ids = [([-1, -1, -1, -1, -1, -1, -1, -1, 3, 3, -1, -1, 2, 2, -1, -1, -1, -1, -1, -1], None)]
-#
-# # df = pd.DataFrame(columns=['topic_id', 'topics'])
-# df_og = pd.read_csv('data/full_data.csv').tail(20).reset_index()
-#
-# ids = topic_ids[0][0]
-#
-# dictionary = {'topic_id': [], 'topics': []}
-# for i in ids:
-#     print(i)
-#     dictionary['topic_id'].append(i)
-#     dictionary['topics'].append(topics[i + 1])
-#
-# df = pd.DataFrame.from_dict(dictionary)
-#
-# df_final = df_og.join(df)
-#
-# print(df_final)
-# import pandas as pd
-#
-# df = pd.read_csv('data/full_data_complete.csv')
-#
-# print(df.iloc[420000]['body'])
-# print(df.iloc[420000]['topics'])
-
+import pandas as pd
 import re
-
 from nltk.stem import WordNetLemmatizer
 from nltk.tokenize import word_tokenize
 from gensim.parsing.preprocessing import remove_stopwords
 
+# script to test the lemmatizing functions for lda
 
 def lemmatize_function_single(article):
     lem = WordNetLemmatizer()
@@ -53,7 +26,6 @@ def lemmatize_function_multi(articles):
         if type(a) != str:
             a = str(a)
         article = re.sub(r'[0-9]+', '', a)
-        # output = word_tokenize(remove_stopwords(re.sub(r'[^\w\s]', '', article).lower()))
         output2 = remove_stopwords(article.lower())
         x = lemmatize_function_single(output2)
         print(x)

@@ -4,6 +4,7 @@ import pandas as pd
 import yfinance as yf
 import numpy as np
 
+# script for downloading yfinance tickers
 
 client = MongoClient("localhost", 27017)
 financedb = client["finance_database"]
@@ -19,15 +20,11 @@ def trends_for_ticker(ticker, short_term=True):
     df_prices = pd.DataFrame(prices_lst_dct)
 
     if short_term:
-        # df_prices["12_DEMA"] = df_prices["Close_price"].ewm(span=12, min_periods=1).mean()
-        # df_prices["26_DEMA"] = df_prices["Close_price"].ewm(span=26, min_periods=1).mean()
         df_prices['DEMA_12'] = dema(df_prices, 12, 'Close_price')
         df_prices['DEMA_26'] = dema(df_prices, 26, 'Close_price')
         df_prices['Signal'] = 0.0
         df_prices['Signal'] = np.where(df_prices['DEMA_12'] > df_prices['DEMA_26'], 1.0, 0.0)
     else:
-        # df_prices["50_DEMA"] = df_prices["Close_price"].ewm(span=50, min_periods=1).mean()
-        # df_prices["200_DEMA"] = df_prices["Close_price"].ewm(span=200, min_periods=1).mean()
         df_prices['DEMA_50'] = dema(df_prices, 50, 'Close_price')
         df_prices['DEMA_200'] = dema(df_prices, 200, 'Close_price')
         df_prices['Signal'] = 0.0
@@ -70,16 +67,7 @@ def turn_date_to_str(dct):
 
 
 download_ticker()
-
-
 list = []
-# for ticker in tickers_used:
-#     list.append(trends_for_ticker(ticker))
-
-# print(len(trends_for_ticker(tickers_used[0])["upward_trends"]))
-
-# print(len(trends_for_ticker(tickers_used[0])["downward_trends"]))
-
 dict = trends_for_ticker(tickers_used[0])
 
 df2 = pd.DataFrame(dict["upward_trends"])

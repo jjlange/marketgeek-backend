@@ -1,24 +1,19 @@
 import os
 import re
 import pandas as pd
-import nltk
 import numpy as np
 from tqdm import tqdm
 
-
+# ----------- testing dirs ----------- #
 folder = "/home/benedict/Documents/comp_sci_repository/project_2/bloomberg_df/bloomberg_dataset"
-
 folder_mac = "/Users/BenedictGrey/Documents/GitHub/comp_sci/project_2/bloomberg_df"
-
 folder2 = "/home/benedict/Documents/comp_sci_repository/project_2/bloomberg_df/bloomberg_dataset/2006-10-20/inco-s-net-soars-on-higher-metal-prices-breakup-fee-update4-"
-
 folder3 = "/home/benedict/Documents/comp_sci_repository/project_2/data_scrape/text.txt"
-
 current = folder_mac
 
 dfs = []
 
-
+# function that returns a structured dictionary with title, author, datetime, source and body
 def get_structure(filepath):
     file_text = ""
     try:
@@ -65,26 +60,23 @@ def walk_files(filepath):
 
 # ------------export----------------#
 
-# call walk_files to insert all the articles into the dfs list
-
 walk_files(current)
-
 # merge dfs into the data_frame
 data_frame = pd.concat(dfs).reset_index(drop=True)
 # print(data_frame)
 
-# chunks = np.array_split(data_frame.index, 100) # chunks of 100 rows
+chunks = np.array_split(data_frame.index, 100) # chunks of 100 rows
 
 
-# for chunck, subset in enumerate(tqdm(chunks)):
-#     if chunck == 0: # first row
-#         data_frame.loc[subset].to_csv('full_data_1.csv', mode='w', index=False)
-#     else:
-#         data_frame.loc[subset].to_csv('full_data_1.csv', header=None, mode='a', index=False)
+for chunck, subset in enumerate(tqdm(chunks)):
+    if chunck == 0: # first row
+        data_frame.loc[subset].to_csv('full_data_1.csv', mode='w', index=False)
+    else:
+        data_frame.loc[subset].to_csv('full_data_1.csv', header=None, mode='a', index=False)
 
 
 # export data to csv
-# data_frame.to_csv('full_data_1.csv', index=False)
-# data_frame.to_csv('small_data_1.csv', index=False)
+data_frame.to_csv('full_data_1.csv', index=False)
+data_frame.to_csv('small_data_1.csv', index=False)
 
 

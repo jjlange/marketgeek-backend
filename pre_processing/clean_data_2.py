@@ -1,7 +1,6 @@
 import pandas as pd
 
-
-# remove short sentences
+# script to remove short sentences
 # calculate mean of the lengths of all the bodies, then subtract the standard deviation
 # then filter the text that is less than the mean - standard deviation
 
