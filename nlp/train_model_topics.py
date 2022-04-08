@@ -1,10 +1,7 @@
 import pandas as pd
-import dask.dataframe as dd
-import dask.array as da
 import re
 import os
 import gensim
-import numpy as np
 import gensim.corpora as corpora
 import plotly.graph_objects as go
 import pyLDAvis
@@ -18,16 +15,15 @@ from nltk.tokenize import word_tokenize
 from gensim.parsing.preprocessing import remove_stopwords
 
 # custom functions
-from clean_topics import find_total_topics
 
 os.environ["TOKENIZERS_PARALLELISM"] = "false"
 
 # import data: training articles are 80% of full dataset = 337680.8 (round up to 337861), transforming the whole dataset
 
 # training data_frame
-data_frame = pd.read_csv('data/full_data.csv').head(337861)
+data_frame = pd.read_csv('../data/full_data.csv').head(337861)
 # data to transform
-data_frame_2 = pd.read_csv('data/full_data.csv')
+data_frame_2 = pd.read_csv('../data/full_data.csv')
 # find articles
 training_articles = data_frame['body'].sample(100)
 input_articles = data_frame_2['body'].sample(n=5)

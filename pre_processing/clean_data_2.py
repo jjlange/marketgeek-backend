@@ -5,7 +5,7 @@ import pandas as pd
 # calculate mean of the lengths of all the bodies, then subtract the standard deviation
 # then filter the text that is less than the mean - standard deviation
 
-data_frame = pd.read_csv('data/full_data_1.csv')
+data_frame = pd.read_csv('../data/full_data_1.csv')
 
 # length of data_frame, length of characters in the bodies and the mean and standard deviation variables
 length = len(data_frame.index)

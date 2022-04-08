@@ -26,23 +26,12 @@
 # print(df.iloc[420000]['body'])
 # print(df.iloc[420000]['topics'])
 
-import pandas as pd
-import dask.dataframe as dd
-import dask.array as da
 import re
-import os
-import gensim
-import numpy as np
-import gensim.corpora as corpora
-import plotly.graph_objects as go
-from bertopic import BERTopic
-
 
 from nltk.stem import WordNetLemmatizer
 from nltk.tokenize import word_tokenize
 from gensim.parsing.preprocessing import remove_stopwords
 
-from clean_topics import find_total_topics
 
 def lemmatize_function_single(article):
     lem = WordNetLemmatizer()

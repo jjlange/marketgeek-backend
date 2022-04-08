@@ -1,7 +1,7 @@
 import numpy as np
 import pandas as pd
 
-tensors = np.load('data/tensors.npy')
+tensors = np.load('../data/tensors.npy')
 
 max_indexes = []
 
@@ -16,7 +16,7 @@ for tensor in tensors:
 
 # print(max_indexes)
 
-df = pd.read_csv('data/topic_size_min_100.csv')
+df = pd.read_csv('../data/topic_size_min_100.csv')
 
 df['sentiment_id'] = max_indexes
 

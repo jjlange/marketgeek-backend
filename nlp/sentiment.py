@@ -13,7 +13,7 @@ model = AutoModelForSequenceClassification.from_pretrained("ProsusAI/finbert")
 
 cuda = torch.device('cuda')
 
-df = pd.read_csv("data/full_data_complete.csv")
+df = pd.read_csv("../data/full_data_complete.csv")
 
 sentences = list(df['title'])
 

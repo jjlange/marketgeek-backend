@@ -9,14 +9,14 @@ from datetime import datetime, timedelta
 # from tickers import trends_for_ticker
 
 
-df = pd.read_csv('data/full_dataset_march15.csv')
+df = pd.read_csv('../data/full_dataset_march15.csv')
 
 # find the start and end of the price trends
 # get some news at the start and the end of the price trends
 # iterate through all the news on a specific day, closing price of a specific day
 
-upwards_ticker = pd.read_csv('data/tickers/EURUSD=X_upward_trends.csv')
-downwards_ticker = pd.read_csv('data/tickers/EURUSD=X_downward_trends.csv')
+upwards_ticker = pd.read_csv('../data/tickers/EURUSD=X_upward_trends.csv')
+downwards_ticker = pd.read_csv('../data/tickers/EURUSD=X_downward_trends.csv')
 
 date_string = str(upwards_ticker['Start_Date'].iloc[len(upwards_ticker) - 1])
 # str2 = '2013-10-21'

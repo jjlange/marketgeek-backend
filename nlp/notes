@@ -1,4 +1,0 @@
-    topics, a vector showing the predicted topic for each tweet;
-
-
-    probabilities, an array of shape (num_documents, num_topics), which is obtained thanks to soft clustering, a feature used in HDBSCAN. Each row index gives the probabilities of the corresponding tweet of being part of the different topics

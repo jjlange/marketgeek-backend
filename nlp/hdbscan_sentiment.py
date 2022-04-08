@@ -10,7 +10,7 @@ from hdbscan.flat import (HDBSCAN_flat,
                           membership_vector_flat,
                           all_points_membership_vectors_flat)
 
-df = pd.read_csv("data/full_dataset_w_tensors_0.csv")
+df = pd.read_csv("../data/full_dataset_w_tensors_0.csv")
 ddf = dd.from_pandas(df, npartitions=1)
 #
 # tensors = df['tensors(+/-/n)']
@@ -18,7 +18,7 @@ ddf = dd.from_pandas(df, npartitions=1)
 #
 # print((tensors[0]))
 
-tensors = np.load('data/tensors.npy')
+tensors = np.load('../data/tensors.npy')
 # tensors = tensors[:500]
 print(tensors)
 

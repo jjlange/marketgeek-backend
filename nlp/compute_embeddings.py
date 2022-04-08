@@ -39,7 +39,7 @@ model = SentenceTransformer('all-MiniLM-L6-v2', device='cuda')
 
 # for full set ------------
 
-data_frame = pd.read_csv('data/full_data_complete.csv')
+data_frame = pd.read_csv('../data/full_data_complete.csv')
 
 sentences = data_frame['title']
 

@@ -12,7 +12,7 @@ from bertopic import BERTopic
 # docs = fetch_20newsgroups(subset='all',  remove=('headers', 'footers', 'quotes'))['data']
 
 # print(type(docs))
-data_frame = pd.read_csv('data/full_dataset_march16.csv').head(10000)
+data_frame = pd.read_csv('../data/full_dataset_march16.csv').head(10000)
 
 sample_df = data_frame.sample(n = 10000)
 
